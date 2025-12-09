@@ -153,20 +153,12 @@ evacuation-simulation/
 └── report.pdf                  # Project report
 ```
 
----
-
-## 👥 Authors
-
-- **Shiva** - CS5110 Final Project
-- **Peter** - CS5110 Final Project
 
 ---
 
-## 📄 References
+📄 Reference
 
-- Multi-Agent Systems course materials (CS5110)
-- BFS pathfinding algorithms
-- Emergency evacuation planning literature
+Crowd Evacuation Conflicts Simulation Based Cellular Automaton Integrating Game Theory
 
 ---
 
