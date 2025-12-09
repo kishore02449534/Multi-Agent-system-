@@ -60,9 +60,9 @@ Emergency evacuations involve complex interactions where individuals must decide
 
 ### Hazards
 
-- 🔥 **Fire Zones**: Spreading fire that blocks paths
-- 🪨 **Debris**: Random obstacles in hallways
-- 🚧 **Bottlenecks**: Artificial chokepoints creating congestion
+-  **Fire Zones**: Spreading fire that blocks paths
+-  **Debris**: Random obstacles in hallways
+-  **Bottlenecks**: Artificial chokepoints creating congestion
 
 ---
 
@@ -107,16 +107,16 @@ The simulation tracks:
 
 ---
 
-## 🎨 Visualizations
+##  Visualizations
 
 ### Grid Visualization
-- 🔵 **Blue**: Cooperator agents
-- 🔴 **Red**: Defector agents
-- ⬛ **Dark Gray**: Walls
-- 🟢 **Green**: Exits
-- 🟤 **Brown**: Obstacles
-- 🟠 **Orange**: Fire
-- ⬜ **Gray**: Debris
+-  **Blue**: Cooperator agents
+- **Red**: Defector agents
+-  **Dark Gray**: Walls
+-  **Green**: Exits
+-  **Brown**: Obstacles
+-  **Orange**: Fire
+-  **Gray**: Debris
 
 ### Analysis Plots
 1. Strategy evolution over time
