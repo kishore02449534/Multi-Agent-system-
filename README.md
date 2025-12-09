@@ -1,119 +1,130 @@
-# 🏫 Multi-Agent School Evacuation Simulation
+# 🏫 Crowd Evacuation Simulation Based on Cellular Automaton Integrating Game Theory
 
-A multi-agent systems project simulating emergency evacuation scenarios in realistic school environments. Developed for Multi-Agent Systems to demonstrate how building layout and obstacle placement impact evacuation effectiveness.
+A multi-agent evacuation simulation that combines **Cellular Automaton** modeling with **Game Theory** (Prisoner's Dilemma) to study how cooperative vs. competitive behaviors affect emergency evacuation outcomes. Developed for **CS5110 - Multi-Agent Systems**.
 
-> 📊 **Key Finding:** Strategic obstacle placement resulted in ~30% of agents becoming trapped with no viable exit paths, highlighting critical design flaws in evacuation routes.
+> 📊 **Key Finding:** Cooperative agents demonstrate higher evacuation success rates and lower wait times compared to defectors, validating that cooperation-promoting mechanisms improve overall evacuation efficiency.
 
 ---
 
 ## 📘 Abstract
 
-Emergency evacuations in complex buildings like schools present significant challenges due to obstacles, bottlenecks, and congested pathways. This project simulates evacuation scenarios using:
+Emergency evacuations involve complex interactions where individuals must decide whether to cooperate or compete for limited exit paths. This project simulates these dynamics by:
 
-- **Realistic school layouts** with multiple room types
-- **Strategic obstacle placement** mimicking real-world environments
-- **BFS-based pathfinding** to calculate evacuation distances and accessibility
-- **Visualization tools** for analyzing evacuation effectiveness
+- Modeling agent behaviors using **Prisoner's Dilemma** game theory
+- Implementing **Cellular Automaton** for spatial movement and collision detection
+- Analyzing how **cooperation vs. defection** strategies affect evacuation outcomes
+- Simulating realistic hazards including **fire zones** and **debris**
 
 ---
 
 ## 🏗️ Architecture Overview
 
-The simulation consists of three main components:
-
 | Component | Description |
 |-----------|-------------|
-| **SchoolGrid** | Generates realistic school layouts with 7 room types and appropriate obstacles |
-| **EvacuationSimulator** | Uses BFS algorithms to calculate distances, identify bottlenecks, and predict evacuation timing |
-| **Visualization Engine** | Produces color-coded maps with legends for clear result interpretation |
+| **SchoolGrid** | Generates complex school layout with classrooms, gym, library, auditorium, cafeteria, and hallways |
+| **Agent** | Individual entities with strategies (Cooperate/Defect), reputation, panic levels, and movement tracking |
+| **EvacuationSimulator** | Core simulation engine with BFS pathfinding, conflict resolution, and strategy evolution |
+| **Visualization Engine** | Real-time grid visualization and statistical analysis plots |
 
 ---
 
-## 🏫 School Layout Design
+## 🎮 Game Theory Model
 
-The simulation creates a complex 7-room school environment:
+### Prisoner's Dilemma Payoff Matrix
 
-```
-┌─────────────┬─────────────┬─────────────┐
-│  Classroom  │   Hallway   │  Classroom  │
-│    (1)      │             │    (2)      │
-├─────────────┤             ├─────────────┤
-│  Classroom  │             │  Classroom  │
-│    (3)      │             │    (4)      │
-├─────────────┴─────────────┴─────────────┤
-│              Cafeteria                  │
-├──────────────────┬──────────────────────┤
-│       Gym        │       Library        │
-└──────────────────┴──────────────────────┘
-```
+| Agent 1 / Agent 2 | Cooperate | Defect |
+|-------------------|-----------|--------|
+| **Cooperate** | (3, 3) | (0, 5) |
+| **Defect** | (5, 0) | (1, 1) |
 
-### 🪑 Obstacle Types
+### Strategy Mechanics
 
-| Room Type | Obstacles | Pattern |
-|-----------|-----------|---------|
-| Classrooms | Desks, chairs | Grid arrangement |
-| Hallways | Lockers | Lining walls |
-| Cafeteria | Tables, benches | Maze-like paths |
-| Gym | Equipment | Scattered placement |
-| Library | Bookshelves | Barrier formations |
+- **Cooperators**: Gain reputation bonuses, receive priority in mutual cooperation scenarios
+- **Defectors**: Short-term gains but face escalating penalties and reputation loss
+- **Strategy Evolution**: Agents adapt strategies based on neighboring agents' success
+
+---
+
+## 🏫 School Environment
+
+### Layout Components
+
+| Area | Features |
+|------|----------|
+| **Classrooms (4)** | Desk obstacles in grid pattern |
+| **Hallway** | Central corridor with debris and bottleneck points |
+| **Gym** | Scattered equipment obstacles |
+| **Library** | Bookshelf barriers |
+| **Auditorium** | Row seating obstacles |
+| **Cafeteria** | Table arrangements |
+
+### Hazards
+
+- 🔥 **Fire Zones**: Spreading fire that blocks paths
+- 🪨 **Debris**: Random obstacles in hallways
+- 🚧 **Bottlenecks**: Artificial chokepoints creating congestion
 
 ---
 
 ## ⚙️ Implementation Details
 
-- **🔧 Language:** Python 3.x
-- **📊 Visualization:** Matplotlib
-- **🧭 Pathfinding:** Breadth-First Search (BFS)
-- **📐 Grid System:** 2D numpy arrays
+### Tech Stack
 
-### Key Algorithms
+- **Language**: Python 3.x
+- **Visualization**: Matplotlib, NumPy
+- **Pathfinding**: Breadth-First Search (BFS)
+- **Data Structures**: Collections (deque), Enum
 
-| Algorithm | Purpose |
-|-----------|---------|
-| BFS Pathfinding | Calculate shortest paths to exits |
-| Bottleneck Detection | Identify congestion points |
-| Accessibility Analysis | Determine trapped agent locations |
-| Evacuation Time Estimation | Predict clearing time based on distance + congestion |
+### Key Parameters
 
----
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| Grid Size | 70 × 50 | School dimensions |
+| Defector Penalty | 0.5 | Penalty multiplier for defectors |
+| Strategy Update Prob | 0.25 | Chance of strategy adaptation |
+| Max Steps | 400 | Simulation time limit |
 
-## 📈 Results & Findings
+### Agent Attributes
 
-### Evacuation Metrics
-
-| Metric | Value |
-|--------|-------|
-| Total Agents | ~100 |
-| Successfully Evacuated | ~70% |
-| Trapped (No Exit Path) | ~30% |
-| Average Evacuation Distance | Varies by room |
-
-### Key Insights
-
-- ⚠️ **Library Area:** Bookshelves create complete barriers, trapping agents entirely
-- 🚪 **Hallway Bottlenecks:** Lockers reduce effective corridor width
-- 📍 **Classroom Accessibility:** Desk arrangements can block direct exit routes
-- ⏱️ **Evacuation Time:** Highly dependent on initial agent position and obstacle density
+- **Strategy**: Cooperate or Defect
+- **Reputation**: Accumulated trust score
+- **Panic Level**: Affects decision-making
+- **Inertia**: Resistance to strategy change
 
 ---
 
-## 🎨 Visualization Features
+## 📈 Simulation Metrics
 
-The simulation generates professional visualizations including:
+The simulation tracks:
 
-- **Color-coded grid maps** showing room types and obstacles
-- **Heatmaps** displaying evacuation distances
-- **Agent position overlays** with path indicators
-- **Legend and annotations** for clear interpretation
+- **Evacuation Success Rate**: Percentage of agents who escape
+- **Cooperator vs. Defector Escape Counts**
+- **Average Steps to Exit**: By strategy type
+- **Average Wait Time**: Time spent blocked
+- **Total Conflicts**: Movement collision events
+- **Peak Congestion**: Maximum crowding near exits
+- **Mutual Cooperation Events**: Successful cooperative interactions
 
 ---
 
-## 🛠️ Tech Stack
+## 🎨 Visualizations
 
-- Python 3.x
-- NumPy (grid operations)
-- Matplotlib (visualization)
-- Collections (BFS queue implementation)
+### Grid Visualization
+- 🔵 **Blue**: Cooperator agents
+- 🔴 **Red**: Defector agents
+- ⬛ **Dark Gray**: Walls
+- 🟢 **Green**: Exits
+- 🟤 **Brown**: Obstacles
+- 🟠 **Orange**: Fire
+- ⬜ **Gray**: Debris
+
+### Analysis Plots
+1. Strategy evolution over time
+2. Cumulative evacuation progress
+3. Congestion levels near exits
+4. Conflicts per time step
+5. Final results by strategy
+6. Efficiency comparison (steps & wait time)
 
 ---
 
@@ -132,12 +143,13 @@ The simulation generates professional visualizations including:
 
 3. **Run the simulation**
    ```bash
-   python evacuation_simulation.py
+   jupyter notebook py__1_.ipynb
    ```
-
-4. **View output**
-   - ASCII grid printed to console
-   - PNG visualization saved to working directory
+   Or convert to Python script:
+   ```bash
+   jupyter nbconvert --to script py__1_.ipynb
+   python py__1_.py
+   ```
 
 ---
 
@@ -146,22 +158,20 @@ The simulation generates professional visualizations including:
 ```
 evacuation-simulation/
 ├── README.md
-├── evacuation_simulation.py    # Main simulation code
-├── school_grid.py              # SchoolGrid class
-├── simulator.py                # EvacuationSimulator class
-├── visualization.py            # Plotting utilities
-└── report.pdf                  # Project report
+├── py__1_.ipynb          # Main simulation notebook
+└── report.pdf            # Project report
 ```
 
+---
+
+
+## 📄 Reference
+
+Xue J, Yang H-C, Zhang M, Wang Z, Shi L. Crowd Evacuation Conflicts Simulation Based Cellular Automaton Integrating Game Theory. Proceedings of the 18th ACM SIGGRAPH International Conference on Virtual-Reality Continuum and its Applications in Industry. 2022. https://dl.acm.org/doi/10.1145/3574131.3574445
 
 ---
 
-📄 Reference
-
-Crowd Evacuation Conflicts Simulation Based Cellular Automaton Integrating Game Theory
-
----
 
 ## 📜 License
 
-This project is for educational purposes as coursework
+This project is for educational purposes as part of CS5110 coursework.
