@@ -1,6 +1,6 @@
 # 🏫 Multi-Agent School Evacuation Simulation
 
-A multi-agent systems project simulating emergency evacuation scenarios in realistic school environments. Developed for **CS5110 - Multi-Agent Systems** to demonstrate how building layout and obstacle placement impact evacuation effectiveness.
+A multi-agent systems project simulating emergency evacuation scenarios in realistic school environments. Developed for Multi-Agent Systems to demonstrate how building layout and obstacle placement impact evacuation effectiveness.
 
 > 📊 **Key Finding:** Strategic obstacle placement resulted in ~30% of agents becoming trapped with no viable exit paths, highlighting critical design flaws in evacuation routes.
 
@@ -41,7 +41,7 @@ The simulation creates a complex 7-room school environment:
 │  Classroom  │             │  Classroom  │
 │    (3)      │             │    (4)      │
 ├─────────────┴─────────────┴─────────────┤
-│              Cafeteria                   │
+│              Cafeteria                  │
 ├──────────────────┬──────────────────────┤
 │       Gym        │       Library        │
 └──────────────────┴──────────────────────┘
